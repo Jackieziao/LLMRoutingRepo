@@ -9,7 +9,7 @@ description = "LLM routing, cascade evaluation, deployment optimization, and que
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
-authors = [{name = "RouteCraft contributors"}]
+authors = [{name = "llm-route-opt contributors"}]
 keywords = ["llm", "routing", "inference", "optimization", "queueing"]
 classifiers = [
   "Development Status :: 3 - Alpha",

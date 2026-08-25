@@ -32,8 +32,18 @@ def _router(args: argparse.Namespace, dataset: BenchmarkDataset) -> Router:
     return CascadeRouter(models, args.threshold)
 
 
+def _json_ready(value: Any) -> Any:
+    if isinstance(value, float):
+        return round(value, 6)
+    if isinstance(value, dict):
+        return {key: _json_ready(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_ready(item) for item in value]
+    return value
+
+
 def _print(value: Any) -> None:
-    print(json.dumps(value, indent=2, sort_keys=True))
+    print(json.dumps(_json_ready(value), indent=2, sort_keys=True))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -56,7 +66,7 @@ def build_parser() -> argparse.ArgumentParser:
     optimize_parser.add_argument(
         "--data", help="normalized RouterBench JSONL; synthetic by default"
     )
-    optimize_parser.add_argument("--budget", type=float, default=0.03)
+    optimize_parser.add_argument("--budget", type=float)
     optimize_parser.add_argument("--max-latency", type=float, default=600.0)
 
     commands.add_parser("demo", help="deterministic end-to-end report")
@@ -71,13 +81,16 @@ def _optimize(args: argparse.Namespace) -> dict[str, Any]:
         result = maximize_quality(
             dataset.queries,
             tuple(dataset.models.values()),
-            total_budget=args.budget,
+            total_budget=args.budget if args.budget is not None else 0.03,
             max_latency_ms=args.max_latency,
         )
         return {"kind": "routing", **asdict(result)}
     optimizer = DeploymentOptimizer(
         tuple(dataset.models.values()),
-        {"small": 0.40, "medium": 1.10, "large": 3.50},
+        {
+            model.model_id: max(0.10, model.input_cost_per_million)
+            for model in dataset.models.values()
+        },
         max_replicas_per_model=8,
     )
     plan = optimizer.optimize(
@@ -85,7 +98,7 @@ def _optimize(args: argparse.Namespace) -> dict[str, Any]:
             Workload("interactive", 5.0, 0.70, 500.0),
             Workload("reasoning", 0.8, 0.90, 1500.0),
         ),
-        hourly_budget=max(args.budget, 8.0),
+        hourly_budget=args.budget if args.budget is not None else 8.0,
     )
     return {"kind": "deployment", **asdict(plan)}
 

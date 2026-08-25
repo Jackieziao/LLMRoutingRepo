@@ -7,14 +7,13 @@
 {"input_cost_per_million": 4.0, "latency_ms": 580.0, "metadata": {}, "model_id": "large", "output_cost_per_million": 12.0, "quality": 0.95, "service_rate_rps": 1.5, "type": "model"}
 {"cost": 9.6e-05, "latency_ms": 80.0, "model_id": "small", "quality": 0.682, "query_id": "q1", "type": "measurement"}
 {"cost": 0.00046, "latency_ms": 210.0, "model_id": "medium", "quality": 0.856, "query_id": "q1", "type": "measurement"}
-{"cost": 0.00184, "latency_ms": 580.0, "model_id": "large", "quality": 0.935, "query_id": "q1", "type": "measurement"}
+{"cost": 0.00184, "latency_ms": 580.0, "model_id": "large", "quality": 0.945, "query_id": "q1", "type": "measurement"}
 {"cost": 0.000384, "latency_ms": 83.2, "model_id": "small", "quality": 0.622, "query_id": "q2", "type": "measurement"}
 {"cost": 0.00174, "latency_ms": 218.4, "model_id": "medium", "quality": 0.801, "query_id": "q2", "type": "measurement"}
 {"cost": 0.00696, "latency_ms": 603.2, "model_id": "large", "quality": 0.9425, "query_id": "q2", "type": "measurement"}
-{"cost": 0.00046, "latency_ms": 86.4, "model_id": "small", "quality": 0.524, "query_id": "q3", "type": "measurement"}
-{"cost": 0.00195, "latency_ms": 226.8, "model_id": "medium", "quality": 0.752, "query_id": "q3", "type": "measurement"}
+{"cost": 0.00046, "latency_ms": 86.4, "model_id": "small", "quality": 0.534, "query_id": "q3", "type": "measurement"}
+{"cost": 0.00195, "latency_ms": 226.8, "model_id": "medium", "quality": 0.762, "query_id": "q3", "type": "measurement"}
 {"cost": 0.0078, "latency_ms": 626.4, "model_id": "large", "quality": 0.905, "query_id": "q3", "type": "measurement"}
 {"cost": 0.00072, "latency_ms": 89.6, "model_id": "small", "quality": 0.458, "query_id": "q4", "type": "measurement"}
-{"cost": 0.0031, "latency_ms": 235.2, "model_id": "medium", "quality": 0.724, "query_id": "q4", "type": "measurement"}
-{"cost": 0.0124, "latency_ms": 649.6, "model_id": "large", "quality": 0.895, "query_id": "q4", "type": "measurement"}
-
+{"cost": 0.0031, "latency_ms": 235.2, "model_id": "medium", "quality": 0.744, "query_id": "q4", "type": "measurement"}
+{"cost": 0.0124, "latency_ms": 649.6, "model_id": "large", "quality": 0.905, "query_id": "q4", "type": "measurement"}

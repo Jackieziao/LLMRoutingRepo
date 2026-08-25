@@ -62,15 +62,16 @@ def inverse_example() -> InverseSolution:
 
     observations = [
         ChoiceObservation(
-            {"quality": 0.95, "economy": 0.30, "speed": 0.40},
-            [
-                {"quality": 0.70, "economy": 0.90, "speed": 0.90},
-                {"quality": 0.85, "economy": 0.60, "speed": 0.65},
-            ],
+            {"quality": 0.90, "economy": 0.40, "speed": 0.60},
+            [{"quality": 0.60, "economy": 0.70, "speed": 0.70}],
         ),
         ChoiceObservation(
-            {"quality": 0.88, "economy": 0.55, "speed": 0.65},
-            [{"quality": 0.75, "economy": 0.80, "speed": 0.75}],
+            {"quality": 0.70, "economy": 0.90, "speed": 0.60},
+            [{"quality": 0.80, "economy": 0.60, "speed": 0.70}],
+        ),
+        ChoiceObservation(
+            {"quality": 0.70, "economy": 0.60, "speed": 0.90},
+            [{"quality": 0.80, "economy": 0.70, "speed": 0.50}],
         ),
     ]
     return infer_weights(observations, ("quality", "economy", "speed"), resolution=20)

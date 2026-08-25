@@ -1,7 +1,5 @@
 # llm-route-opt
 
-[![CI](https://github.com/OWNER/llm-route-opt/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/llm-route-opt/actions/workflows/ci.yml)
-
 `llm-route-opt` is a provider-neutral Python toolkit for reproducible LLM
 routing, offline evaluation, discrete optimization, deployment assignment, and
 queue-aware capacity planning. It uses only synthetic public data and requires
@@ -94,4 +92,3 @@ calibration without changing the core schemas.
 ## License and citation
 
 Apache-2.0. Cite the project using [`CITATION.cff`](CITATION.cff).
-

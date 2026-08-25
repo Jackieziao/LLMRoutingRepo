@@ -4,6 +4,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+.fresh-venv/
+.uv-cache/
+.uv-python/
 venv/
 build/
 dist/
@@ -11,4 +14,3 @@ dist/
 htmlcov/
 .idea/
 .vscode/
-

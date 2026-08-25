@@ -6,3 +6,4 @@ def test_discrete_inverse_example_is_rationalized() -> None:
     assert result.pairwise_accuracy == 1
     assert abs(sum(result.weights.values()) - 1) < 1e-12
     assert result.weights["quality"] > result.weights["economy"]
+    assert all(weight > 0 for weight in result.weights.values())
