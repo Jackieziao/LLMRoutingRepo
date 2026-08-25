@@ -1,5 +1,9 @@
 # llm-route-opt
 
+**Built for both academic research and personal use:** configure API-key
+mappings for Sol, Terra, and Luna, then route each task to the appropriate model
+so routine work does not waste expensive, high-capability model tokens.
+
 `llm-route-opt` is a provider-neutral Python toolkit for reproducible LLM
 routing, offline evaluation, discrete optimization, deployment assignment, and
 queue-aware capacity planning. It is designed for both **academic routing
@@ -27,8 +31,9 @@ models, provider pricing, prompts, and workloads.
 - Grid-exact discrete inverse optimization for learning normalized objective
   weights from observed choices.
 - Deterministic `evaluate`, `optimize`, and end-to-end `demo` CLI workflows.
-- A reusable Codex task-to-model skill that selects Sol, Terra, or an optional
-  Luna route from task complexity and quality/latency/cost preferences.
+- A reusable Codex task-to-model skill that reads Sol, Terra, and Luna API-key
+  mappings, selects the right route, and can execute it through the Responses
+  API.
 
 ## Install
 
@@ -57,17 +62,25 @@ are deterministic for the included dataset.
 
 ## Personal task-to-model routing
 
-The [`select-llm-model` skill](skills/select-llm-model/SKILL.md) turns a task
-description into one available model identifier. Its deterministic helper can
-also be used without Codex:
+The [`select-llm-model` skill](skills/select-llm-model/SKILL.md) first requires a
+JSON config mapping Sol, Terra, and Luna to their API credentials. Copy
+[`model-api-keys.example.json`](skills/select-llm-model/model-api-keys.example.json)
+to the ignored `model-api-keys.json`, then set the three environment variables
+named by the config. Environment references keep secrets out of the repository;
+the helper never prints keys.
+
+The selector can run offline without resolving the credentials:
 
 ```bash
 python skills/select-llm-model/scripts/select_model.py \
+  --config skills/select-llm-model/model-api-keys.json \
   --task "Implement a typed REST endpoint and tests" \
   --priority balanced \
-  --available gpt-5.6-sol gpt-5.6-terra luna \
   --format text
 ```
+
+Add `--execute` to send the task to the selected model through the Responses
+API. This creates billable API usage and sends the task content to OpenAI.
 
 Default routing policy:
 
@@ -75,12 +88,12 @@ Default routing policy:
   other maximum-quality work.
 - `gpt-5.6-terra`: everyday implementation, tests, refactoring, documentation,
   and balanced engineering work.
-- `luna`: optional user-provided route for extraction, formatting,
+- `gpt-5.6-luna`: extraction, formatting,
   classification, short summaries, and other speed- or cost-sensitive work.
 
-Luna is treated as an optional catalog label, not assumed to be installed or an
-official model. When it is unavailable, the selector falls back to Terra or Sol
-and reports that choice explicitly.
+The model IDs follow the current OpenAI Sol/Terra/Luna family. Selection does
+not change the model running the current Codex session; execution is a separate
+API request using the selected model and its corresponding configured key.
 
 ## Python example
 
