@@ -73,6 +73,7 @@ public example.
 - [Mathematical formulation](docs/math.md)
 - [Routing and evaluation tutorial](docs/tutorial.md)
 - [End-to-end experiment](docs/end_to_end.md)
+- [Small Jupyter case demo](examples/quickstart.ipynb)
 
 ## Development
 
