@@ -1,0 +1,4 @@
+interface:
+  display_name: "Select LLM Model"
+  short_description: "Route tasks to Sol, Terra, or Luna"
+  default_prompt: "Use $select-llm-model to recommend the best available model for this task."

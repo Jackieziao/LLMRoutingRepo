@@ -2,8 +2,17 @@
 
 `llm-route-opt` is a provider-neutral Python toolkit for reproducible LLM
 routing, offline evaluation, discrete optimization, deployment assignment, and
-queue-aware capacity planning. It uses only synthetic public data and requires
-no API keys or paid services.
+queue-aware capacity planning. It is designed for both **academic routing
+research** and **personal LLM use**. Researchers can reproduce routing and
+deployment experiments; individuals can right-size each task so simple work
+does not automatically consume tokens from the most capable model. It uses only
+synthetic public data and requires no API keys or paid services.
+
+The practical goal is to help users spend model tokens deliberately: reserve
+deep-reasoning models for difficult or high-risk tasks, use balanced models for
+normal engineering, and route low-risk transformations to a lightweight model
+when one is available. Actual token and monetary savings depend on the selected
+models, provider pricing, prompts, and workloads.
 
 ## MVP capabilities
 
@@ -18,6 +27,8 @@ no API keys or paid services.
 - Grid-exact discrete inverse optimization for learning normalized objective
   weights from observed choices.
 - Deterministic `evaluate`, `optimize`, and end-to-end `demo` CLI workflows.
+- A reusable Codex task-to-model skill that selects Sol, Terra, or an optional
+  Luna route from task complexity and quality/latency/cost preferences.
 
 ## Install
 
@@ -43,6 +54,33 @@ llm-route-opt optimize inverse
 The demo always prints measured mean quality, total USD cost, mean/p95 latency,
 model counts, and the constrained optimal assignment. Floating-point results
 are deterministic for the included dataset.
+
+## Personal task-to-model routing
+
+The [`select-llm-model` skill](skills/select-llm-model/SKILL.md) turns a task
+description into one available model identifier. Its deterministic helper can
+also be used without Codex:
+
+```bash
+python skills/select-llm-model/scripts/select_model.py \
+  --task "Implement a typed REST endpoint and tests" \
+  --priority balanced \
+  --available gpt-5.6-sol gpt-5.6-terra luna \
+  --format text
+```
+
+Default routing policy:
+
+- `gpt-5.6-sol`: architecture, difficult debugging, security, algorithms, and
+  other maximum-quality work.
+- `gpt-5.6-terra`: everyday implementation, tests, refactoring, documentation,
+  and balanced engineering work.
+- `luna`: optional user-provided route for extraction, formatting,
+  classification, short summaries, and other speed- or cost-sensitive work.
+
+Luna is treated as an optional catalog label, not assumed to be installed or an
+official model. When it is unavailable, the selector falls back to Terra or Sol
+and reports that choice explicitly.
 
 ## Python example
 
