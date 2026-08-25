@@ -14,3 +14,4 @@ dist/
 htmlcov/
 .idea/
 .vscode/
+skills/select-llm-model/model-api-keys.json
