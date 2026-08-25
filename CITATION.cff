@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use llm-route-opt, please cite this software."
+title: "llm-route-opt: Reproducible LLM Routing and Deployment Optimization"
+type: software
+authors:
+  - name: "llm-route-opt contributors"
+version: 0.1.0
+date-released: 2026-08-25
+license: Apache-2.0
+repository-code: "https://github.com/OWNER/llm-route-opt"
+keywords:
+  - large language models
+  - routing
+  - deployment optimization
+  - queueing
+
